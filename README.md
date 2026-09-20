@@ -1,6 +1,7 @@
 # headwordapp.com
 
-The Headword website: a landing page, `/support/` and `/privacy/`. Static HTML and one
+The Headword website: a landing page, `/support/`, `/privacy/`, and four redirect pages —
+`/ig/`, `/tt/` and their `/paid/` variants — the links in the Instagram and TikTok bios. Static HTML and one
 stylesheet, served by GitHub Pages at https://headwordapp.com. Nothing loads from a third
 party — no fonts, scripts or analytics — so the privacy page can say so.
 
@@ -16,3 +17,10 @@ typeset, for anyone (or any tool) changing it.
 
 Before launch the landing page's one action is a mailto link asking to be told when the app
 ships. At launch, replace that link's `href` and the line beneath it with the App Store URL.
+
+`/ig/`, `/tt/`, `/ig/paid/` and `/tt/paid/` are one-line redirects (a meta refresh, no script)
+so the social profiles link here once and never change. Before launch they go to the landing
+page; at launch, change each page's URL to its App Store campaign link (tokens `instagram`,
+`tiktok`, `instagram-paid`, `tiktok-paid`, made in App Store Connect → App Analytics →
+Campaigns), so the store reports installs by source. The comment at the top of each page says
+exactly where.
