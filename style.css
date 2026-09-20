@@ -124,6 +124,23 @@ footer {
 }
 footer a { color: inherit; }
 
+/* The two profiles, as glyphs at the end of the footer row: quiet ink, the accent on
+   hover, drawn inline so nothing loads from elsewhere. Each is a 44px target around a
+   20px glyph, pulled in by negative margins so the row keeps its rhythm. */
+footer .social { display: inline-flex; gap: 0.25rem; align-self: center; margin-left: auto; }
+footer .social .icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin: -0.75rem -0.5rem;
+  border-radius: 50%;
+  text-decoration: none;
+}
+footer .social .icon:hover { color: var(--accent); }
+footer .social svg { display: block; }
+
 /* ------------------------------------------------------------------
    The landing page: one long dictionary entry for "headword".
    Section labels are the apparatus the app already sets (IN USE, ORIGIN). */
