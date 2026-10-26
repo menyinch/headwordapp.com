@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Usage — Headword</title>
+  <link rel="icon" href="/icon.png">
+  <style>
+    /* Same paper and ink as the rest of the site. Nothing loads from a third party;
+       the only request this page makes is to the metrics function. */
+    :root {
+      color-scheme: light dark;
+      --paper: #faf8f4;
+      --ink: #1e1b19;
+      --ink-2: #59544f;
+      --rule: rgba(30, 27, 25, 0.18);
+      --accent: #8c2619;
+      --on-accent: #ffffff;
+      --card: #ffffff;
+      --track: rgba(30, 27, 25, 0.1);
+      --serif: ui-serif, "New York", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+      --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #16130f;
+        --ink: #f0ece6;
+        --ink-2: #c7c2be;
+        --rule: rgba(240, 236, 230, 0.2);
+        --accent: #d97359;
+        --on-accent: #1a100d;
+        --card: #1f1b17;
+        --track: rgba(240, 236, 230, 0.12);
+      }
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--paper); }
+    body {
+      margin: 0; background: var(--paper); color: var(--ink);
+      font: 16px/1.5 var(--sans); -webkit-font-smoothing: antialiased;
+      font-variant-numeric: tabular-nums;
+    }
+    main { max-width: 64rem; margin: 0 auto; padding: 1.5rem 16px 4rem; }
+    h1 { font: 400 2rem/1.15 var(--serif); margin: 0 0 .25rem; }
+    h2 { font: 400 1.35rem/1.2 var(--serif); margin: 2.25rem 0 .25rem; padding-top: .75rem; border-top: 1px solid var(--rule); }
+    .quiet { color: var(--ink-2); font-size: .9rem; margin: 0 0 .75rem; }
+    .scope { color: var(--ink-2); font-size: .85rem; margin: 0 0 .75rem; }
+    form.filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: .75rem; margin: 1rem 0 0; }
+    label { display: grid; gap: .2rem; font-size: .8rem; color: var(--ink-2); }
+    input, select, button {
+      font: inherit; color: var(--ink); background: var(--card); min-height: 44px;
+      border: 1px solid var(--ink-2); border-radius: 8px; padding: 0 .6rem; width: 100%;
+    }
+    button { background: var(--accent); color: var(--on-accent); border-color: var(--accent); cursor: pointer; width: auto; padding: 0 1.2rem; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: .75rem; margin-top: .75rem; }
+    .card { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: .8rem 1rem; }
+    .card .big { font: 400 2rem/1.1 var(--serif); }
+    .card .label { font-size: .85rem; color: var(--ink-2); }
+    .card .prev { font-size: .8rem; color: var(--ink-2); }
+    .card .scope { margin: .25rem 0 0; font-size: .75rem; }
+    .row { display: grid; grid-template-columns: minmax(6rem, 11rem) 1fr; gap: .25rem .75rem; align-items: center; padding: .35rem 0; border-bottom: 1px solid var(--rule); }
+    .row .name { overflow-wrap: anywhere; }
+    .row .figure { grid-column: 2; font-size: .85rem; color: var(--ink-2); }
+    svg.bar { width: 100%; height: 10px; display: block; }
+    svg.bar .track { fill: var(--track); }
+    svg.bar .fill { fill: var(--accent); }
+    .scroll { overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; min-width: 26rem; }
+    th, td { text-align: left; padding: .4rem .6rem .4rem 0; border-bottom: 1px solid var(--rule); font-weight: 400; white-space: nowrap; }
+    th { color: var(--ink-2); font-size: .8rem; }
+    ol, ul { margin: .25rem 0; padding-left: 1.25rem; }
+    #login { max-width: 22rem; margin: 3rem auto; display: grid; gap: .75rem; }
+    #error { color: var(--accent); }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Usage</h1>
+  <p class="quiet">Headword, from the app's own usage endpoint. Aggregates only; no install is ever named.</p>
+
+  <form id="login" hidden>
+    <label>Password<input id="password" type="password" autocomplete="current-password" required></label>
+    <button type="submit">Open</button>
+  </form>
+  <p id="error" role="alert"></p>
+
+  <form id="filters" class="filters" hidden>
+    <label>From<input name="from" type="date"></label>
+    <label>To<input name="to" type="date"></label>
+    <label>Channel
+      <select name="channel">
+        <option value="appstore" selected>App Store</option>
+        <option value="testflight">TestFlight</option>
+        <option value="debug">Debug</option>
+        <option value="unknown">Unknown</option>
+      </select>
+    </label>
+    <label>Language<input name="language" type="text" placeholder="all" maxlength="12"></label>
+    <label>Plan
+      <select name="plan">
+        <option value="">All</option>
+        <option value="free">Free</option>
+        <option value="plus">Plus</option>
+        <option value="unconfigured">Unconfigured</option>
+      </select>
+    </label>
+    <label>Installs
+      <select name="cohort">
+        <option value="">Default</option>
+        <option value="new">New</option>
+        <option value="existing">Existing</option>
+        <option value="all">All</option>
+      </select>
+    </label>
+    <label>&nbsp;<button type="submit">Show</button></label>
+  </form>
+
+  <p id="status" class="quiet" role="status"></p>
+  <div id="out"></div>
+</main>
+
+<script id="render">
+function render(data) {
+  data = data || {};
+  var NA = "—";
+
+  function esc(value) {
+    return String(value == null ? "" : value)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  }
+  function num(value) {
+    return typeof value === "number" && isFinite(value) ? String(value) : NA;
+  }
+  function isNum(value) {
+    return typeof value === "number" && isFinite(value);
+  }
+  function pct(n, d) {
+    return isNum(n) && isNum(d) && d > 0 ? Math.round(100 * n / d) : null;
+  }
+  // "45% of 22", or a dash when there is nothing to divide by.
+  function rate(n, d) {
+    var p = pct(n, d);
+    return p === null ? NA : p + "% of " + d;
+  }
+  function label(name) {
+    return esc(String(name == null ? "" : name).replace(/_/g, " "));
+  }
+  function bar(n, d, what) {
+    var p = pct(n, d);
+    var width = p === null ? 0 : Math.max(0, Math.min(100, p));
+    return '<svg class="bar" viewBox="0 0 100 10" preserveAspectRatio="none" role="img" aria-label="' +
+      esc(what) + " " + esc(rate(n, d)) + '"><rect class="track" width="100" height="10" rx="2"/>' +
+      '<rect class="fill" width="' + width + '" height="10" rx="2"/></svg>';
+  }
+  function row(name, n, d, extra) {
+    return '<div class="row"><span class="name">' + label(name) + "</span>" + bar(n, d, name) +
+      '<span class="figure">' + esc(rate(n, d)) + (extra ? " · " + esc(extra) : "") + "</span></div>";
+  }
+  // `scope` is a list of lines; each stands as its own paragraph so none runs into the next sentence.
+  function section(title, scope, body) {
+    var lines = [].concat(scope || []).filter(Boolean);
+    return "<section><h2>" + esc(title) + "</h2>" + lines.map(function (l) { return '<p class="scope">' + esc(l) + "</p>"; }).join("") + body + "</section>";
+  }
+  function empty(text) {
+    return '<p class="quiet">' + esc(text || "Nothing in this range.") + "</p>";
+  }
+
+  var applies = data.applies || {};
+  // A panel absent from `applies` honours every filter; a flag of false is a filter it ignores.
+  function ignores(key) {
+    var flags = applies[key];
+    if (!flags) return "";
+    var parts = [];
+    if (flags.channel === false) parts.push("all channels");
+    if (flags.language === false) parts.push("all languages");
+    if (flags.plan === false) parts.push("all plans");
+    if (flags.cohort === false) parts.push("new installs only");
+    if (flags.range === false) parts.push("all time");
+    return parts.join(", ");
+  }
+
+  function cap(text) {
+    return text ? "Showing " + text + "." : "";
+  }
+
+  var filters = data.filters || {};
+  var range = data.range || {};
+  var head = '<p class="quiet">' + esc(range.from || NA) + " to " + esc(range.to || NA) +
+    " · channel " + esc(filters.channel || "all") +
+    " · language " + esc(filters.language || "all") +
+    " · plan " + esc(filters.plan || "all") +
+    " · installs " + esc(filters.cohort || "default") + "</p>" +
+    '<p class="quiet">Small numbers: one reader can move a percentage by several points.</p>';
+
+  // 1. Headline
+  var h = data.headline || {};
+  function card(title, key, value, previous, shown) {
+    var scope = ignores(key);
+    return '<div class="card"><div class="label">' + esc(title) + '</div><div class="big">' + esc(shown) +
+      '</div><div class="prev">Before: ' + esc(previous) + "</div>" +
+      (scope ? '<p class="scope">' + esc(scope) + "</p>" : "") + "</div>";
+  }
+  function plain(title, key) {
+    var m = h[key] || {};
+    return card(title, key, m.value, num(m.previous), num(m.value));
+  }
+  var d7 = h.d7 || {};
+  var cards = plain("New installs", "newInstalls") +
+    plain("Weekly active installs", "weeklyActive") +
+    plain("Weekly practising installs", "practising") +
+    card("D7 retention", "d7", d7.value, rate(d7.previous, d7.previousOf),
+      rate(d7.value, d7.of)) +
+    plain("Turned notifications off", "notificationsTurnedOff");
+  var headline = section("Headline", "Weekly figures are the mean per week in the range.", '<div class="cards">' + cards + "</div>");
+
+  // 2. Tour funnel
+  var tour = Array.isArray(data.tour) ? data.tour : [];
+  var tourBody = tour.length ? tour.map(function (s) {
+    var first = (h.newInstalls || {}).value;
+    return row(s.step, s.shown, first, num(s.completed) + " completed, " + num(s.skipped) + " skipped");
+  }).join("") : empty();
+  var tourPanel = section("Tour funnel", ["Share of new installs reaching each step.", cap(ignores("tour"))], tourBody);
+
+  // 3. Retention
+  var ret = Array.isArray(data.retention) ? data.retention : [];
+  function dayCell(n, cohort) {
+    return n == null ? "<td>not yet</td>" : "<td>" + esc(rate(n, cohort)) + "</td>";
+  }
+  var retBody = ret.length ? '<div class="scroll"><table><thead><tr><th>Install week</th><th>Installs</th><th>D1</th><th>D7</th><th>D30</th></tr></thead><tbody>' +
+    ret.map(function (r) {
+      return "<tr><td>" + esc(r.week) + "</td><td>" + num(r.cohort) + "</td>" + dayCell(r.d1, r.cohort) +
+        dayCell(r.d7, r.cohort) + dayCell(r.d30, r.cohort) + "</tr>";
+    }).join("") + "</tbody></table></div>" : empty();
+  var retPanel = section("Retention", cap(ignores("retention")), retBody);
+
+  // 4. Feature use
+  var feats = Array.isArray(data.features) ? data.features : [];
+  var featPanel = section("Feature use", ["Share of installs active in the range that used each feature.", cap(ignores("features"))],
+    feats.length ? feats.map(function (f) { return row(f.feature, f.installs, f.of); }).join("") : empty());
+
+  // 5. Where they stop
+  var last = data.lastEvents || {};
+  var singles = Array.isArray(last.single) ? last.single : [];
+  var seqs = Array.isArray(last.sequences) ? last.sequences : [];
+  var stopBody = (singles.length || seqs.length) ?
+    "<p class=\"quiet\">Installs whose last activity was 7+ days ago: their last event, and their last three in order.</p>" +
+    (singles.length ? "<ol>" + singles.map(function (s) { return "<li>" + label(s.name) + " · " + num(s.installs) + " installs</li>"; }).join("") + "</ol>" : "") +
+    (seqs.length ? "<ul>" + seqs.map(function (s) {
+      return "<li>" + (Array.isArray(s.names) ? s.names : []).map(label).join(" → ") + " · " + num(s.installs) + " installs</li>";
+    }).join("") + "</ul>" : "") : empty();
+  var stopPanel = section("Where they stop", cap(ignores("lastEvents")), stopBody);
+
+  // 6. Opens by source
+  var opens = Array.isArray(data.opens) ? data.opens : [];
+  var openTotal = opens.reduce(function (sum, o) { return sum + (isNum(o.opens) ? o.opens : 0); }, 0);
+  var opensPanel = section("Opens by source", "", opens.length ? opens.map(function (o) { return row(o.source, o.opens, openTotal); }).join("") : empty());
+
+  // 7. Practice and Review
+  var learn = data.learning || {};
+  var practice = learn.practice || {};
+  var review = learn.review || {};
+  var kinds = Array.isArray(learn.kinds) ? learn.kinds : [];
+  var learnBody = row("Practice finished", practice.finished, practice.started, "started " + num(practice.started)) +
+    row("Review finished", review.finished, review.started, "started " + num(review.started)) +
+    '<p class="quiet">First try right, by exercise kind.</p>' +
+    (kinds.length ? kinds.map(function (k) { return row(k.kind, k.firstTryRight, k.of); }).join("") : empty());
+  var learnPanel = section("Practice and Review", "", learnBody);
+
+  // 8. Play
+  var play = Array.isArray(data.play) ? data.play : [];
+  var ring = data.ring || {};
+  var levels = Array.isArray(ring.levelsReached) ? ring.levelsReached : [];
+  var help = Array.isArray(ring.help) ? ring.help : [];
+  var playBody = (play.length ? play.map(function (g) {
+    return row(g.game, g.finished, g.started, "won " + num(g.won) + ", started " + num(g.started));
+  }).join("") : empty()) +
+    '<p class="quiet">Letter ring levels reached (installs that got at least this far' + (ignores("ring.levelsReached") ? "; " + esc(ignores("ring.levelsReached")) : "") + ").</p>" +
+    (levels.length ? "<ul>" + levels.map(function (l) { return "<li>Level " + num(l.level) + " · " + num(l.installs) + " installs</li>"; }).join("") + "</ul>" : empty()) +
+    '<p class="quiet">Help used.</p>' +
+    (help.length ? "<ul>" + help.map(function (x) { return "<li>" + label(x.kind) + " · " + num(x.uses) + " uses</li>"; }).join("") + "</ul>" : empty());
+  var playPanel = section("Play", "Rounds finished of rounds started.", playBody);
+
+  // 9. Plus
+  var plus = Array.isArray(data.plus) ? data.plus : [];
+  var plusPanel = section("Plus", "Paywall views to purchases, per context.",
+    plus.length ? plus.map(function (p) {
+      return row(p.context, p.purchases, p.shown, "closed " + num(p.closed) + ", shown " + num(p.shown) + " (bar is purchases)");
+    }).join("") : empty());
+
+  return head + headline + tourPanel + retPanel + featPanel + stopPanel + opensPanel + learnPanel + playPanel + plusPanel;
+}
+</script>
+
+<script>
+(function () {
+  var DEFAULT_API = "https://qjtiyagewhykucevoafa.supabase.co/functions/v1/metrics-api";
+  var local = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+  // The ?api= override exists for local testing only; on the live site it is ignored.
+  var api = (local && new URLSearchParams(location.search).get("api")) || DEFAULT_API;
+  var KEY = "stats-password";
+
+  var loginForm = document.getElementById("login");
+  var filterForm = document.getElementById("filters");
+  var out = document.getElementById("out");
+  var errorLine = document.getElementById("error");
+  var statusLine = document.getElementById("status");
+
+  function getPassword() {
+    try { return sessionStorage.getItem(KEY); } catch (e) { return null; }
+  }
+  function setPassword(value) {
+    try {
+      if (value) sessionStorage.setItem(KEY, value); else sessionStorage.removeItem(KEY);
+    } catch (e) { /* the page still works for this load */ }
+  }
+  var memory = null;
+
+  function askForPassword(message) {
+    errorLine.textContent = message || "";
+    out.textContent = "";
+    filterForm.hidden = true;
+    loginForm.hidden = false;
+    document.getElementById("password").focus();
+  }
+
+  function load() {
+    var password = getPassword() || memory;
+    if (!password) { askForPassword(""); return; }
+    loginForm.hidden = true;
+    filterForm.hidden = false;
+    errorLine.textContent = "";
+    var params = new URLSearchParams();
+    new FormData(filterForm).forEach(function (value, key) {
+      if (value) params.set(key, value);
+    });
+    out.textContent = "";
+    statusLine.textContent = "Loading…";
+    fetch(api + "?" + params.toString(), { headers: { Authorization: "Bearer " + password } })
+      .then(function (response) {
+        if (response.status === 401) {
+          setPassword(null); memory = null;
+          askForPassword("That password was not accepted.");
+          return null;
+        }
+        if (!response.ok) throw new Error("The server answered " + response.status + ".");
+        return response.json();
+      })
+      .then(function (data) {
+        if (data) {
+          out.innerHTML = render(data);
+          statusLine.textContent = "Loaded.";
+        }
+      })
+      .catch(function (e) {
+        out.textContent = "";
+        statusLine.textContent = "";
+        errorLine.textContent = "Could not load the numbers. " + e.message;
+      });
+  }
+
+  loginForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+    memory = document.getElementById("password").value;
+    setPassword(memory);
+    document.getElementById("password").value = "";
+    load();
+  });
+  filterForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+    load();
+  });
+  load();
+})();
+</script>
+</body>
+</html>
