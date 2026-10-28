@@ -10,12 +10,12 @@ People who already know a lot of English and want to use more of it, in two grou
 1. Non-native professionals (starting with Spanish speakers in Latin America) who work in English every day and want to sound precise instead of approximate.
 2. Native speakers who read widely and want rarer, more exact words.
 
-They meet this site from the App Store listing (support and privacy links), from a shared link, or from a search for the app by name. They are on a phone as often as a laptop. They are readers: they will read a paragraph if it is worth reading.
+They meet this site from the App Store listing (support and privacy links), from a shared link, from a search, or from an AI assistant's answer. They are on a phone as often as a laptop. They are readers: they will read a paragraph if it is worth reading.
 
 ## Product Purpose
 headwordapp.com is the public face of Headword, an iPhone app: one new English word a day, delivered as a full dictionary entry on the Lock Screen, and a 60-second drill that has you write with the word before you can say you have learned it. The wedge against Vocabulary, WordUp and word-of-the-day apps is production, not recognition.
 
-The site has three pages: the landing page, Support and the Privacy policy. The landing page has one job: make a reader want the app and give them one thing to do about it (the App Store link, since the release on 2026-09-22). Success is a reader who understands in ten seconds what makes Headword different and taps the one action.
+The site has the landing page, an FAQ, two guides (how to improve your English vocabulary for work; vocabulary apps compared), Support and the Privacy policy. The FAQ and guides exist to be found and cited by search and AI assistants, which already send readers to the app. The landing page has one job: make a reader want the app and give them one thing to do about it (the App Store link, since the release on 2026-09-22). Success is a reader who understands in ten seconds what makes Headword different and taps the one action.
 
 A hard constraint carried by the privacy policy: nothing on the site loads from a third party. No web fonts, no scripts, no analytics, no embeds. Everything is served from this repository by GitHub Pages.
 

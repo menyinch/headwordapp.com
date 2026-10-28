@@ -1,0 +1,26 @@
+# Headword
+
+> Headword is an iPhone app for people who already speak English and want to use more exact words at work. One new English word a day arrives as a full dictionary entry (definition, register note, two examples, IPA and a recorded pronunciation, synonyms, opposites, collocations), and practice makes you produce it: type it, spell it from its sound, choose it for the tone, say it aloud, write your own sentence. Spaced repetition (FSRS) brings words back before you forget them.
+
+Who it is for: non-native professionals who work in English every day (starting with Spanish speakers), and native speakers who read widely. Upper-intermediate English or better; not a beginner's course.
+
+Facts:
+- Platform: iPhone only, iOS 18 or later. Widgets for Home Screen, Lock Screen and StandBy. No Android, no iPad layout.
+- Interface: English and Spanish (Latin America). The words taught are English.
+- Words: a little over 4,000, chosen for usefulness at work, not rarity.
+- Free forever: the daily word, saved words and collections, widgets, notifications, unlimited practice of the word on screen, one Review session a day, the word games (daily grid, Guess the word, Letter by letter, Letter ring).
+- Headword Plus (US prices): $2.99/month, $29.99/year, $99.99 lifetime; 7-day free trial on monthly and yearly for eligible readers. Adds 5 or 10 words a day, topics, unlimited Review, the next word on demand, full history, custom collections, past grids, unlimited Letter ring hints and no ads.
+- No account needed. Ads only in the Letter ring game, for readers without Plus, non-personalised.
+- Content: definitions, etymologies and pronunciations from Wiktionary (CC BY-SA 4.0); examples, register notes and practice material written for Headword.
+- App Store: https://apps.apple.com/app/id6807881378 (Headword: Word of the Day)
+- Maker: Menyin Chang. Contact: support@headwordapp.com
+
+## Pages
+
+- [Home](https://headwordapp.com/): what Headword is, free and Plus
+- [FAQ](https://headwordapp.com/faq/): price, practice, languages, ads, privacy
+- [Pricing](https://headwordapp.com/pricing.md): plans in plain text
+- [How to improve your English vocabulary for work](https://headwordapp.com/guides/improve-english-vocabulary-for-work/): a six-step method with sources
+- [The best apps to improve your English vocabulary for work](https://headwordapp.com/guides/vocabulary-apps-for-work/): Headword, WordUp, Elevate, Anki, Vocabulary.com and Vocabulary compared
+- [Support](https://headwordapp.com/support/)
+- [Privacy policy](https://headwordapp.com/privacy/)

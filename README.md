@@ -1,6 +1,6 @@
 # headwordapp.com
 
-The Headword website: a landing page, `/support/`, `/privacy/`, `/appstore/` (a redirect to the App Store page), and four
+The Headword website: a landing page, `/faq/`, two guides under `/guides/`, `/support/`, `/privacy/`, `/appstore/` (a redirect to the App Store page), and four
 redirect pages — `/ig/`, `/tt/` and their `/paid/` variants — the links in the Instagram and TikTok bios. Static HTML and one
 stylesheet, served by GitHub Pages at https://headwordapp.com. Nothing loads from a third
 party — no fonts, scripts or analytics — so the privacy page can say so. The Instagram and
@@ -28,3 +28,11 @@ page; at launch, change each page's URL to its App Store campaign link (tokens `
 `tiktok`, `instagram-paid`, `tiktok-paid`, made in App Store Connect → App Analytics →
 Campaigns), so the store reports installs by source. The comment at the top of each page says
 exactly where.
+
+**Found by AI assistants (2026-10-28).** ChatGPT sent 10 of the app's first 29 downloads, so the site is written to be
+read and cited by answer engines as well as people: `/faq/` (FAQPage data), two guides that answer the questions people
+ask (`/guides/improve-english-vocabulary-for-work/`, `/guides/vocabulary-apps-for-work/`), `llms.txt`, `pricing.md`,
+`robots.txt` (every crawler welcome, `/stats/` excepted) and `sitemap.xml`. Every claim on them is checked against the
+app: when the app changes what is free, what Plus costs or where ads appear, update the FAQ, `pricing.md`, `llms.txt` and
+the home page together, and bump their dates. The comparison guide describes other apps as their own App Store pages do;
+re-check it every few months.

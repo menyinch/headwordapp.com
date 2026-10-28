@@ -1,0 +1,6 @@
+# Every crawler is welcome, AI search and answer engines included: they are how readers find Headword.
+User-agent: *
+Allow: /
+Disallow: /stats/
+
+Sitemap: https://headwordapp.com/sitemap.xml
