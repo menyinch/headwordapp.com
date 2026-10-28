@@ -36,3 +36,7 @@ ask (`/guides/improve-english-vocabulary-for-work/`, `/guides/vocabulary-apps-fo
 app: when the app changes what is free, what Plus costs or where ads appear, update the FAQ, `pricing.md`, `llms.txt` and
 the home page together, and bump their dates. The comparison guide describes other apps as their own App Store pages do;
 re-check it every few months.
+
+**IndexNow.** The 32-hex-character `.txt` file at the root is the site's IndexNow key (its name is its content).
+After pushing a page change, run `./indexnow.sh` (every sitemap URL) or `./indexnow.sh /faq/` (one path) so Bing
+and the other IndexNow engines crawl it at once. Keep `sitemap.xml`'s `lastmod` dates true when pages change.
